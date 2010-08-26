@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mysql2_model}
-  s.version = "0.0.1"
+  s.version = "0.0.2"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["donnoman"]
@@ -25,11 +25,16 @@ Gem::Specification.new do |s|
      "README.rdoc",
      "Rakefile",
      "VERSION",
+     "examples/mtdb.rb",
      "lib/mysql2_model.rb",
+     "lib/mysql2_model/client.rb",
+     "lib/mysql2_model/config.rb",
+     "lib/mysql2_model/container.rb",
      "mysql2_model.gemspec",
      "spec/mysql2_model_spec.rb",
      "spec/spec.opts",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "templates/repositories.yml.sample"
   ]
   s.homepage = %q{http://github.com/donnoman/mysql2_model}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -38,7 +43,8 @@ Gem::Specification.new do |s|
   s.summary = %q{Mysql2Model is a container for creating model code based on the Mysql2 gem}
   s.test_files = [
     "spec/mysql2_model_spec.rb",
-     "spec/spec_helper.rb"
+     "spec/spec_helper.rb",
+     "examples/mtdb.rb"
   ]
 
   if s.respond_to? :specification_version then

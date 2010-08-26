@@ -11,7 +11,8 @@ begin
     gem.homepage = "http://github.com/donnoman/mysql2_model"
     gem.authors = ["donnoman"]
     gem.add_runtime_dependency "mysql2", "~> 0.2"
-    gem.add_development_dependency "rspec", "~> 1.3"
+    gem.add_runtime_dependency "activesupport", "~> 2.3"
+    gem.add_development_dependency "rspec", "~> 1.3"    
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new
@@ -40,7 +41,7 @@ Rake::RDocTask.new do |rdoc|
   version = File.exist?('VERSION') ? File.read('VERSION') : ""
 
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title = "mysql2_model2 #{version}"
+  rdoc.title = "mysql2_model #{version}"
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
 end

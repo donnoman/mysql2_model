@@ -1,0 +1,11 @@
+:repositories:
+  :community:
+    :database: community_production
+    :username: root
+    :password: gibberish
+    :host: localhost
+  :infrastructure:
+    :database: infrastructure_production
+    :username: infra_user
+    :password: more_gibberish
+    :host: localhost

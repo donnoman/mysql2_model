@@ -1,7 +1,7 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Mysql2Model" do
-  it "fails" do
-    fail "hey buddy, you should probably rename this file and start specing for real"
+  it "should report the same version as in the VERSION file" do
+    Mysql2Model::VERSION.to_s.should == IO.read(File.expand_path(File.dirname(__FILE__) + "/../VERSION")).strip
   end
 end

@@ -10,7 +10,8 @@ begin
     gem.email = "donnoman@donovanbray.com"
     gem.homepage = "http://github.com/donnoman/mysql2_model"
     gem.authors = ["donnoman"]
-    gem.add_development_dependency "thoughtbot-shoulda", ">= 0"
+    gem.add_runtime_dependency "mysql2", "~> 0.2"
+    gem.add_development_dependency "rspec", "~> 1.3"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

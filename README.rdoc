@@ -1,23 +1,96 @@
 = mysql2_model the anti-orm
 
-Mysql2Model will provide intelligent connection management and evented async
-query model containers built around the Myqsl2 Gem for surgical MySQL goodness.
-
-This gem is being designed to be used when a more adaptable, extensible, or
-heavier ORM has outlived it's usefulness or desireability for the specific task
-at hand.
-
-The idea is to add a thin veneer to mysql2 to allow very precise, deliberate,
-performant containment of associated business logic that is expressed in direct
+Mysql2Model will add a thin veneer to mysql2 to allow deliberate,
+performant containment of associated business logic that is expressed by raw
 MySQL statements.
 
-Mysql2Model will not be composable, or have associations, there are other ORM's
-that do that just fine. (ActiveRecord, Sequel, Datamapper)
+This gem is being designed to be used when a more adaptable, extensible, or
+heavier ORM's have outlived their usefulness or desirability for the specific task
+at hand. (ActiveRecord, Sequel, Datamapper,et al)
+
+While the example given in this README is trivial the most likely usage would be with 
+particularly gnarly business logic as you might need in generating analytics 
+where using the typical ORM's yield numerous sub-optimal SQL queries, and you are desparate
+for a simpler more direct and precise approach.
 
 Each Mysql2Model class will express its business logic around a subject, it's
 not concerned with eliminating duplication of model coverage or being a 1:1
 expression of a distinct SQL object, each class is simply a different window
-into the data. Don't like the view, switch to a different window.
+into the data and returns its results flavored with the container's desired behaviors.
+
+== Usage
+
+=== Require it
+
+  require 'mysql2_model'
+
+=== Create a yml structure to point to the databases
+
+  # config/repositories.yml
+  :repositories:
+    :community:
+      :database: community_production
+      :username: root
+      :password: gibberish
+      :host: localhost
+    :infrastructure:
+      :database: infrastructure_production
+      :username: infra_user
+      :password: more_gibberish
+      :host: localhost
+      
+=== Config it
+
+  Mysql2Model::Config.repository_path = 'config/repositories.yml'
+  
+=== Create your model
+
+  class Mtdb
+    include Mysql2Model::Container
+  
+    def self.all
+      query("SELECT id, database_name, db_server_host, db_server_port, db_server_user, db_server_password * FROM mtdbs")
+    end
+  
+    def config_name
+      "mtdb#{id}".to_sym
+    end
+  
+    def to_config
+      {
+        config_name => {
+          :host => db_server_host,
+          :database => database_name,
+          :port => db_server_port,
+          :username => db_server_user,
+          :password => db_server_password_unencrypted
+        }
+      }
+    end
+  
+    def db_server_password_unencrypted
+      nil # You have to invent your own.
+    end
+  
+    def self.default_repository_name # You don't need this if you want to use the default repo
+      :infrastructure
+    end
+  
+  end
+
+=== Use it
+
+  Mtdb.all.each |mtdb|
+    puts "Database: #{mtdb.database_name}:" #direct method access
+    puts "Host: #{mtdb[:db_server_host]}"   #direct member access
+    puts "Config: {mtdb.to_config.inspect}" #model methods
+  end
+
+== Todo
+* Bring specs up to current development
+* Improve instantiating the results so that we can regain mysql2's lazy loading.
+* Evented Connection Pools
+* Evented Query Patterns
 
 == Note on Patches/Pull Requests
  

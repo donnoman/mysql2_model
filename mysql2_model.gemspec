@@ -19,11 +19,14 @@ Gem::Specification.new do |s|
     ".document",
      ".gitignore",
      "CHANGELOG.md",
+     "Gemfile",
+     "Gemfile.lock",
      "MIT-LICENSE",
      "README.rdoc",
      "Rakefile",
      "VERSION",
      "lib/mysql2_model.rb",
+     "mysql2_model.gemspec",
      "spec/mysql2_model_spec.rb",
      "spec/spec.opts",
      "spec/spec_helper.rb"
@@ -32,7 +35,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Provides connection management and evented async query model containers built around the Myqsl2 Gem}
+  s.summary = %q{Mysql2Model is a container for creating model code based on the Mysql2 gem}
   s.test_files = [
     "spec/mysql2_model_spec.rb",
      "spec/spec_helper.rb"

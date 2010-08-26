@@ -5,7 +5,7 @@ begin
   require 'jeweler'
   Jeweler::Tasks.new do |gem|
     gem.name = "mysql2_model"
-    gem.summary = %Q{Provides connection management and evented async query model containers built around the Myqsl2 Gem}
+    gem.summary = %Q{Mysql2Model is a container for creating model code based on the Mysql2 gem}
     gem.description = %Q{Thin veneer to mysql2 to allow very precise, deliberate, performant containment of associated business logic that is expressed in direct MySQL statements}
     gem.email = "donnoman@donovanbray.com"
     gem.homepage = "http://github.com/donnoman/mysql2_model"

@@ -4,13 +4,13 @@ Mysql2Model will add a thin veneer to mysql2 to allow deliberate,
 performant containment of associated business logic that is expressed by raw
 MySQL statements.
 
-This gem is being designed to be used when a more adaptable, extensible, or
+This gem is being designed to be used when more adaptable, extensible, or
 heavier ORM's have outlived their usefulness or desirability for the specific task
-at hand. (ActiveRecord, Sequel, Datamapper,et al)
+at hand. (ActiveRecord, Sequel, Datamapper, et al)
 
 While the example given in this README is trivial the most likely usage would be with 
 particularly gnarly business logic as you might need in generating analytics 
-where using the typical ORM's yield numerous sub-optimal SQL queries, and you are desparate
+where using the typical ORM's yield numerous sub-optimal SQL queries, and you are desperate
 for a simpler more direct and precise approach.
 
 Each Mysql2Model class will express its business logic around a subject, it's
@@ -28,7 +28,7 @@ into the data and returns its results flavored with the container's desired beha
 
   # config/repositories.yml
   :repositories:
-    :community:
+    :default:
       :database: community_production
       :username: root
       :password: gibberish
@@ -96,11 +96,9 @@ into the data and returns its results flavored with the container's desired beha
  
 * Fork the project.
 * Make your feature addition or bug fix.
-* Add tests for it. This is important so I don't break it in a
-  future version unintentionally.
+* Add tests for it. This is important so I don't break it in a future version unintentionally.
 * Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version in a
-commit by itself I can ignore when I pull)
+  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
 == Special Thanks

@@ -1,5 +1,5 @@
 :repositories:
-  :community:
+  :default:
     :database: community_production
     :username: root
     :password: gibberish

@@ -3,11 +3,25 @@ module Mysql2Model
   module Container
     
     def self.included(base)
-      base.extend(ClassMethods)
+      base.extend Forwardable
+      base.extend ClassMethods
+      base.extend Mysql2Model::Composer
+      base.def_delegators :default_repository_config, :database, :username, :host, :password
+      base.class_eval do 
+        class << self
+          extend Forwardable
+          def_delegators :default_repository_config, :database, :username, :host, :password
+        end
+      end
     end
   
     def initialize(row)
-      @attributes = row || {}
+      raise ArgumentError, "must be a hash" unless row.is_a?(Hash)
+      @attributes = row
+    end
+    
+    def default_repository_config
+      self.class.default_repository_config
     end
   
     def respond_to?(method)
@@ -49,17 +63,29 @@ module Mysql2Model
     
     module ClassMethods
       
+      def default_repository_config
+        OpenStruct.new(Mysql2Model::Client.repositories[default_repository_name][:config])
+      end
+      
       def default_repository_name
         :default
       end
       
       def client
-        @client ||= Mysql2Model::Client[default_repository_name]
+        Mysql2Model::Client[default_repository_name]
+      end
+      
+      # Return only the first value from the first row.
+      # Useful with queries that only return one result, like a COUNT.
+      def value(statement='',*args)
+        statement = yield if block_given?
+        client.query(compose_sql(statement,*args)).first.first.last
       end
 
-      #This will get more diverse, but we are starting very basic.
-      def query(value)
-        client.query(value).map do |row|
+      # Return the resultset as instances of self instead of Mysql2::Result
+      def query(statement='',*args)
+        statement = yield if block_given?
+        client.query(compose_sql(statement,*args)).map do |row|
           #TODO: MonkeyPatch Mysql2 to support loading the primitives directly into custom class :as => CustomClass, and remove this map
           #TODO: This is defeating Mysql2's lazy loading, but it's good for proof-of-concept
           self.new(row)

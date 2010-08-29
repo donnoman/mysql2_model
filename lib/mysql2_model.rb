@@ -1,6 +1,8 @@
 require 'rubygems'
 require "active_support/core_ext/object/blank"
+# require "active_support/core_ext"
 require 'mysql2'
+require 'forwardable'
 
 # = Mysql2Model
 #
@@ -12,3 +14,4 @@ end
 require 'mysql2_model/config'
 require 'mysql2_model/client'
 require 'mysql2_model/container'
+require 'mysql2_model/composer'

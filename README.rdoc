@@ -11,12 +11,7 @@ at hand. (ActiveRecord, Sequel, Datamapper, et al)
 While the example given in this README is trivial the most likely usage would be with 
 particularly gnarly business logic as you might need in generating analytics 
 where using the typical ORM's yield numerous sub-optimal SQL queries, and you are desperate
-for a simpler more direct and precise approach.
-
-Each Mysql2Model class will express its business logic around a subject, it's
-not concerned with eliminating duplication of model coverage or being a 1:1
-expression of a distinct SQL object, each class is simply a different window
-into the data and returns its results flavored with the container's desired behaviors.
+for a simpler more precise approach.
 
 == Usage
 
@@ -49,7 +44,28 @@ into the data and returns its results flavored with the container's desired beha
     include Mysql2Model::Container
   
     def self.all
-      query("SELECT id, database_name, db_server_host, db_server_port, db_server_user, db_server_password * FROM mtdbs")
+      query "SELECT id, database_name, db_server_host, db_server_port, db_server_user, db_server_password * FROM mtdbs"
+    end
+    
+    def self.count
+      value("SELECT COUNT(*) FROM mtdbs")
+    end
+    
+    # ? Mark substitution
+    def self.find_by_database_name_and_host(name,host)
+      query("SELECT * FROM mtdbs WHERE database_name = '?' and database_host = '?'",name,host)
+    end
+    
+    # printf style shown with block pattern
+    def self.find_by_host(host)
+      query do
+        ["SELECT * FROM mtdbs WHERE database_host = '%s'",host]
+      end
+    end
+    
+    # Named Binds
+    def self.arrange_by_custom_order(order,user)
+      query("SELECT * FROM mtdbs WHERE db_server_user = ':user' ORDER BY database_name :order, db_server_host :order", :order => order, :user => user)
     end
   
     def config_name
@@ -87,7 +103,9 @@ into the data and returns its results flavored with the container's desired beha
   end
 
 == Todo
-* Bring specs up to current development
+* Incorporate Test,Production,Development into the repositories.yml
+* Time formatting when using the composing pattern to seamlessly pass time objects to mysql2
+* Refactor Mysql2Model::Client so that it no longer uses class variables.
 * Improve instantiating the results so that we can regain mysql2's lazy loading.
 * Evented Connection Pools
 * Evented Query Patterns
@@ -100,6 +118,9 @@ into the data and returns its results flavored with the container's desired beha
 * Commit, do not mess with rakefile, version, or history.
   (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
+
+== Similar Projects
+* RBatis is the port of iBatis to Ruby and Ruby on Rails. http://ibatis.apache.org/docs/ruby/ (Appears to be discontinued)
 
 == Special Thanks
 

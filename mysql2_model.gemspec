@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["donnoman"]
-  s.date = %q{2010-08-26}
+  s.date = %q{2010-08-29}
   s.description = %q{Thin veneer to mysql2 to allow very precise, deliberate, performant containment of associated business logic that is expressed in direct MySQL statements}
   s.email = %q{donnoman@donovanbray.com}
   s.extra_rdoc_files = [
@@ -33,8 +33,7 @@ Gem::Specification.new do |s|
      "mysql2_model.gemspec",
      "spec/mysql2_model_spec.rb",
      "spec/spec.opts",
-     "spec/spec_helper.rb",
-     "templates/repositories.yml.sample"
+     "spec/spec_helper.rb"
   ]
   s.homepage = %q{http://github.com/donnoman/mysql2_model}
   s.rdoc_options = ["--charset=UTF-8"]
@@ -42,7 +41,11 @@ Gem::Specification.new do |s|
   s.rubygems_version = %q{1.3.7}
   s.summary = %q{Mysql2Model is a container for creating model code based on the Mysql2 gem}
   s.test_files = [
-    "spec/mysql2_model_spec.rb",
+    "spec/mysql2_model/client_spec.rb",
+     "spec/mysql2_model/container_spec.rb",
+     "spec/mysql2_model/config_spec.rb",
+     "spec/mysql2_model/composer_spec.rb",
+     "spec/mysql2_model_spec.rb",
      "spec/spec_helper.rb",
      "examples/mtdb.rb"
   ]

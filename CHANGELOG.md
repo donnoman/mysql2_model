@@ -1,4 +1,7 @@
 # Changelog
+## 0.0.4 (August 30th, 2010)
+* Refactored Mysql2Model::Client to use class instance instead of class variables.
+* Refactored Mysql2Model::Config to use class instance instead of class variables.
 ## 0.0.3 (August 28th, 2010)
 * Fixed misspelling of "repository_path" in Mysql2Model::Config
 * Added specs for all classes

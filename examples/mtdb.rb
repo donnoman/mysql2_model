@@ -1,6 +1,6 @@
 require "mysql2_model"
 
-Mysql2Model::Config.repository_path = File.expand_path(File.dirname(__FILE__) + '/../templates/repositories.yml')
+Mysql2Model::Config.repository_path = File.expand_path(File.dirname(__FILE__) + '/../examples/repositories.yml')
 
 # # Use like:
 # Mtdb.all.each |mtdb|

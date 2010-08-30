@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mysql2_model}
-  s.version = "0.0.3"
+  s.version = "0.0.4"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["donnoman"]
-  s.date = %q{2010-08-29}
+  s.date = %q{2010-08-30}
   s.description = %q{Thin veneer to mysql2 to allow very precise, deliberate, performant containment of associated business logic that is expressed in direct MySQL statements}
   s.email = %q{donnoman@donovanbray.com}
   s.extra_rdoc_files = [

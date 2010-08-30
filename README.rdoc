@@ -105,7 +105,6 @@ for a simpler more precise approach.
 == Todo
 * Incorporate Test,Production,Development into the repositories.yml
 * Time formatting when using the composing pattern to seamlessly pass time objects to mysql2
-* Refactor Mysql2Model::Client so that it no longer uses class variables.
 * Improve instantiating the results so that we can regain mysql2's lazy loading.
 * Evented Connection Pools
 * Evented Query Patterns

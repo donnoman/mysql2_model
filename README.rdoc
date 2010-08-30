@@ -103,8 +103,10 @@ for a simpler more precise approach.
   end
 
 == Todo
-* Incorporate Test,Production,Development into the repositories.yml
 * Time formatting when using the composing pattern to seamlessly pass time objects to mysql2
+** Support ActiveSupport::TimeWithZone?
+** Enforce compliance with Mysql2
+* Incorporate Test,Production,Development into the repositories.yml
 * Improve instantiating the results so that we can regain mysql2's lazy loading.
 * Evented Connection Pools
 * Evented Query Patterns

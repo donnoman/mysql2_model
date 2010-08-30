@@ -71,12 +71,12 @@ module Mysql2Model
     def escape_bound_value(value) #:nodoc:
       if value.respond_to?(:map) && !value.is_a?(String)
         if value.respond_to?(:empty?) && value.empty?
-          client.escape(nil)
+          escape(nil)
         else
-          value.map { |v| client.escape(v) }.join(',')
+          value.map { |v| escape(v) }.join(',')
         end
       else
-        client.escape(value.to_s)
+        escape(value)
       end
     end
 
@@ -84,6 +84,15 @@ module Mysql2Model
       unless expected == provided
         raise PreparedStatementInvalid, "wrong number of bind variables (#{provided} for #{expected}) in: #{statement}"
       end
+    end
+    
+    def escape(value)
+      client.escape(convert(value))
+    end
+    
+    def convert(value)
+      return value.to_formatted_s(:db) if value.respond_to?(:to_formatted_s)
+      value.to_s
     end
     
   end

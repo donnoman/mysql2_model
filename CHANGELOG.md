@@ -1,4 +1,6 @@
 # Changelog
+## 0.0.5 (August 30th, 2010)
+* Added Naive Date/Time Coercion (Be vewy vewy wary)
 ## 0.0.4 (August 30th, 2010)
 * Refactored Mysql2Model::Client to use class instance instead of class variables.
 * Refactored Mysql2Model::Config to use class instance instead of class variables.

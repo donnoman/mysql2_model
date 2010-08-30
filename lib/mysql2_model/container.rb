@@ -85,10 +85,15 @@ module Mysql2Model
       # Return the resultset as instances of self instead of Mysql2::Result
       def query(statement='',*args)
         statement = yield if block_given?
-        client.query(compose_sql(statement,*args)).map do |row|
-          #TODO: MonkeyPatch Mysql2 to support loading the primitives directly into custom class :as => CustomClass, and remove this map
-          #TODO: This is defeating Mysql2's lazy loading, but it's good for proof-of-concept
-          self.new(row)
+        response = client.query(compose_sql(statement,*args))
+        if response.respond_to?(:map)
+          response.map do |row|
+            #TODO: MonkeyPatch Mysql2 to support loading the primitives directly into custom class :as => CustomClass, and remove this map
+            #TODO: This is defeating Mysql2's lazy loading, but it's good for proof-of-concept
+            self.new(row)
+          end
+        else
+          response
         end
       end
       alias_method :execute, :query #allow the user to choose whether they want the mysql2 DSL or activerecord DSL

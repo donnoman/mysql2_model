@@ -15,16 +15,18 @@ Spec::Runner.configure do |config|
         id MEDIUMINT NOT NULL AUTO_INCREMENT,
         name VARCHAR(40),
         value VARCHAR(40),
+        created_at DATETIME,
+        updated_at DATETIME,
         PRIMARY KEY (id)
       )
     ]
     client.query %[
       INSERT INTO mysql2_model_test (
-        name, value
+        name, value, updated_at, created_at
       )
 
       VALUES (
-        'test', 'garbage'
+        'test', 'garbage', NOW(), NOW()
       )
     ]
   end

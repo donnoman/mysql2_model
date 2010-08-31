@@ -42,7 +42,7 @@ describe M2MContainer, "mysql2 methods" do
   
   describe "value" do
     it "should return only the first value of the first row" do
-      M2MContainer.value("SELECT COUNT(*) FROM mysql2_model_test").should eql(1)
+      M2MContainer.value("SELECT COUNT(*) FROM mysql2_model_test").should eql(2)
     end
   end
 end

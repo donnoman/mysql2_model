@@ -30,5 +30,14 @@ Spec::Runner.configure do |config|
         'test', 'garbage', NOW(), NOW()
       )
     ]
+    client.query %[
+      INSERT INTO mysql2_model_test (
+        name, value, updated_at, created_at
+      )
+
+      VALUES (
+        'test2', 'garbage2', NOW(), NOW()
+      )
+    ]
   end
 end

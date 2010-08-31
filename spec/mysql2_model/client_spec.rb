@@ -48,16 +48,37 @@ describe M2MClient do
     before :each do
       Mysql2Model::Config.should_receive(:repository_path).any_number_of_times.and_return(File.expand_path(File.dirname(__FILE__) + '/../repositories.yml'))
       Mysql2Model::Client.load_repos(true)
-      Mysql2Model::Client[:default2] = YAML.load(File.read(File.expand_path(File.dirname(__FILE__) + '/../repositories.yml')))[:repositories][:default]
-      Mysql2Model::Client[:default3] = YAML.load(File.read(File.expand_path(File.dirname(__FILE__) + '/../repositories.yml')))[:repositories][:default]      
     end
-    it "should return one row" do
-      M2MClient.stub!(:default_repository_name).and_return(:default2)
-      M2MClient.all.size.should eql(1)
+    describe "with multiple repositories" do
+      before :each do 
+        Mysql2Model::Client[:default2] = YAML.load(File.read(File.expand_path(File.dirname(__FILE__) + '/../repositories.yml')))[:repositories][:default]
+        Mysql2Model::Client[:default3] = YAML.load(File.read(File.expand_path(File.dirname(__FILE__) + '/../repositories.yml')))[:repositories][:default]      
+        M2MClient.stub!(:default_repository_name).and_return([:default,:default2,:default3])
+      end
+      it "should return single resultset of merged rows" do
+        M2MClient.all.size.should eql(6)
+      end
+      it "should add the values returned" do
+        M2MClient.value_sum("SELECT COUNT(*) from mysql2_model_test").should eql(6)
+      end
+      it "should return an array of values" do
+        M2MClient.value("SELECT COUNT(*) from mysql2_model_test").should eql([2,2,2])
+      end
     end
-    it "should return an array for each db" do
-      M2MClient.stub!(:default_repository_name).and_return([:default,:default2,:default3])
-      M2MClient.all.size.should eql(3)
+    describe "with single repository" do
+      before :each do 
+        M2MClient.stub!(:default_repository_name).and_return(:default)
+      end
+      it "should return single resultset" do
+        M2MClient.all.size.should eql(2)
+      end
+      it "should add the values returned" do
+        M2MClient.value_sum("SELECT COUNT(*) from mysql2_model_test").should eql(2)
+      end
+      it "should return the value" do
+        M2MClient.value("SELECT COUNT(*) from mysql2_model_test").should eql(2)
+      end
     end
   end
 end
+

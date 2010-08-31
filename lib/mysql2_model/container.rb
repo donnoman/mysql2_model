@@ -76,29 +76,50 @@ module Mysql2Model
         Mysql2Model::Client[default_repository_name]
       end
       
+      def with_composed_sql(statement='',*args)
+        composed_sql = compose_sql(statement,*args).strip
+        log.info("SQL:[#{composed_sql}]")
+        yield composed_sql
+      end
+      
+      #Return the sum of adding the first value from each of the rows
+      #primarily useful with count queries running against multiple repos
+      def value_sum(statement='',*args)
+        statement = yield if block_given?
+        with_composed_sql(statement,*args) do |sql|
+          client.query(sql).inject(0) { |sum,row|
+            sum += row.first.last
+          }
+        end
+      end
+      
       # Return only the first value from the first row.
       # Useful with queries that only return one result, like a COUNT.
       def value(statement='',*args)
         statement = yield if block_given?
-        composed_sql = compose_sql(statement,*args).strip
-        log.info("SQL:[#{composed_sql}]")
-        client.query(composed_sql).first.first.last
+        with_composed_sql(statement,*args) do |composed_sql|
+          if (rv = client.query(composed_sql)).count > 1
+            rv.map {|row| row.first.last }
+          else
+            rv.first.first.last
+          end
+        end
       end
 
       # Return the resultset as instances of self instead of Mysql2::Result
       def query(statement='',*args)
         statement = yield if block_given?
-        composed_sql = compose_sql(statement,*args).strip
-        log.info("SQL:[#{composed_sql}]")
-        response = client.query(composed_sql)
-        if response.respond_to?(:map)
-          response.map do |row|
-            #TODO: MonkeyPatch Mysql2 to support loading the primitives directly into custom class :as => CustomClass, and remove this map
-            #TODO: This is defeating Mysql2's lazy loading, but it's good for proof-of-concept
-            self.new(row)
+        with_composed_sql(statement,*args) do |composed_sql|
+          response = client.query(composed_sql)
+          if response.respond_to?(:map)
+            response.map do |row|
+              #TODO: MonkeyPatch Mysql2 to support loading the primitives directly into custom class :as => CustomClass, and remove this map
+              #TODO: This is defeating Mysql2's lazy loading, but it's good for proof-of-concept
+              self.new(row)
+            end
+          else
+            response
           end
-        else
-          response
         end
       end
       alias_method :execute, :query #allow the user to choose whether they want the mysql2 DSL or activerecord DSL

@@ -93,8 +93,10 @@ module Mysql2Model
         end
       end
       
-      # Return only the first value from the first row.
+      # Return only the first value from the row.
       # Useful with queries that only return one result, like a COUNT.
+      # If multiple rows are returned as in a COUNT against multiple repos
+      # then an array is returned that contains the first value from each row
       def value(statement='',*args)
         statement = yield if block_given?
         with_composed_sql(statement,*args) do |composed_sql|

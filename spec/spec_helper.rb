@@ -8,6 +8,7 @@ require 'ruby-debug'
 Spec::Runner.configure do |config|
   config.before(:all) do
     Mysql2Model::Config.repository_path = File.join(File.dirname(__FILE__), 'repositories.yml')
+    Mysql2Model::LOGGER.level = :fatal
     client = Mysql2::Client.new(YAML.load(File.read(Mysql2Model::Config.repository_path))[:repositories][:default])
     client.query %[ DROP TABLE IF EXISTS mysql2_model_test ]
     client.query %[

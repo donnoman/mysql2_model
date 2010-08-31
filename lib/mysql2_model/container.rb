@@ -6,6 +6,7 @@ module Mysql2Model
       base.extend Forwardable
       base.extend ClassMethods
       base.extend Mysql2Model::Composer
+      #TODO: do we need the delegators in the instance... not sure.
       base.def_delegators :default_repository_config, :database, :username, :host, :password
       base.class_eval do 
         class << self
@@ -79,13 +80,17 @@ module Mysql2Model
       # Useful with queries that only return one result, like a COUNT.
       def value(statement='',*args)
         statement = yield if block_given?
-        client.query(compose_sql(statement,*args)).first.first.last
+        composed_sql = compose_sql(statement,*args).strip
+        log.info("SQL:[#{composed_sql}]")
+        client.query(composed_sql).first.first.last
       end
 
       # Return the resultset as instances of self instead of Mysql2::Result
       def query(statement='',*args)
         statement = yield if block_given?
-        response = client.query(compose_sql(statement,*args))
+        composed_sql = compose_sql(statement,*args).strip
+        log.info("SQL:[#{composed_sql}]")
+        response = client.query(composed_sql)
         if response.respond_to?(:map)
           response.map do |row|
             #TODO: MonkeyPatch Mysql2 to support loading the primitives directly into custom class :as => CustomClass, and remove this map
@@ -97,6 +102,10 @@ module Mysql2Model
         end
       end
       alias_method :execute, :query #allow the user to choose whether they want the mysql2 DSL or activerecord DSL
+      
+      def log
+        Mysql2Model::LOGGER
+      end
       
     end
   end

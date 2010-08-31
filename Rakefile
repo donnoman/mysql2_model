@@ -12,7 +12,9 @@ begin
     gem.authors = ["donnoman"]
     gem.add_runtime_dependency "mysql2", "~> 0.2"
     gem.add_runtime_dependency "activesupport", "~> 2.3"
-    gem.add_development_dependency "rspec", "~> 1.3"    
+    gem.add_runtime_dependency 'builder', '~> 2.1.2' #Not needed if using entire active_support
+    gem.add_runtime_dependency 'logging', '~> 1'
+    gem.add_development_dependency "rspec", "~> 1.3"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

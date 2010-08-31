@@ -4,3 +4,24 @@
     :username: root
     :password: gibberish
     :host: localhost
+  :secondary: 
+    :database: mysql2_model_test
+    :username: root
+    :password: gibberish
+    :host: localhost
+  :multiple:
+    :m1:
+      :database: mysql2_model_test
+      :username: root
+      :password: gibberish
+      :host: localhost
+    :m2:
+      :database: mysql2_model_test
+      :username: root
+      :password: gibberish
+      :host: localhost
+    :m3:
+      :database: mysql2_model_test
+      :username: root
+      :password: gibberish
+      :host: localhost

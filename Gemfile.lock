@@ -4,7 +4,7 @@ PATH
     mysql2_model (0.0.5)
       activesupport (~> 2.3)
       builder (~> 2.1.2)
-      logging (~> 1.4)
+      logging (~> 1)
       mysql2 (~> 0.2)
 
 GEM
@@ -24,7 +24,7 @@ PLATFORMS
 DEPENDENCIES
   activesupport (~> 2.3)
   builder (~> 2.1.2)
-  logging (~> 1.4)
+  logging (~> 1)
   mysql2 (~> 0.2)
   mysql2_model!
   rspec (~> 1.3)

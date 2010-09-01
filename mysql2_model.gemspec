@@ -9,8 +9,8 @@ Gem::Specification.new do |s|
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["donnoman"]
-  s.date = %q{2010-08-31}
-  s.description = %q{Thin veneer to mysql2 to allow very precise, deliberate, performant containment of associated business logic that is expressed in direct MySQL statements}
+  s.date = %q{2010-09-01}
+  s.description = %q{Provides a class suitable to be used as a model, that includes connection management, variable interpolation, object coercion and helper methods to support using direct MySQL statements for database interaction.}
   s.email = %q{donnoman@donovanbray.com}
   s.extra_rdoc_files = [
     "README.rdoc"

@@ -149,9 +149,9 @@ the same task in 56 seconds, with about 64 queries and it also dramatically redu
 == Todo
 * Improve coupling between classes
 * Time formatting when using the composing pattern to seamlessly pass time objects to mysql2
- * Support ActiveSupport::TimeWithZone?
- * Enforce compliance with Mysql2
-* Incorporate Test,Production,Development into the repositories.yml
+  * Support ActiveSupport::TimeWithZone?
+  * Compliance with Mysql2 time handling
+* Incorporate Test,Production,Development environments into the repositories.yml
 * Improve instantiating the results so that we can regain mysql2's lazy loading.
 * Evented Connection Pools
 * Evented Query Patterns

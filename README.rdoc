@@ -1,16 +1,22 @@
-= mysql2_model the QRM (Query Resource Management)
+= mysql2_model the QRM (Query Resource Manager)
 
 Provides a class suitable to be used as a model, that includes connection management, variable interpolation, 
-object coercion and helper methods to support using direct MySQL statements for database interaction.
+object coercion and helper methods to support utilizing precise MySQL statements.
 
-This gem is designed to be used when more adaptable, extensible, or
-heavier ORM's have outlived their usefulness or desirability for the specific task
-at hand. (ActiveRecord, Sequel, Datamapper, et al)
+This library is ideal for use when more adaptable, extensible, but less flexible ORM's have exceeded their desirability
+for the complex task at hand. (ActiveRecord, Sequel, Datamapper, et al)
 
 While the example given in this README is trivial the most likely usage would be with 
 particularly gnarly business logic as you might need in generating analytics 
-where using the typical ORM's yield numerous sub-optimal SQL queries, and you are desperate
-for a simpler more precise approach.
+where a typical ORM may yield numerous sub-optimal SQL queries.
+
+== Inspiration
+
+This library was conceived when I wanted to solve a specific performance issue in a small Sinatra app that used Datamapper
+by replacing it with a series of complex but precisely crafted SQL queries. The process generated a 21mb (and growing) XML file,
+at a cost of over 300k queries, and taking 27 minutes.  I desired something that looked and acted like a Datamapper/ActiveRecord 
+model but without the cruft. I wanted simple, lightweight and performant. The resulting Mysql2Model derived class accomplished 
+the same task in 56 seconds, with about 64 queries and it also dramatically reduced the ruby process' memory footprint.
 
 == Usage
 
@@ -101,9 +107,35 @@ for a simpler more precise approach.
     puts "Config: {mtdb.to_config.inspect}" #model methods
   end
   
+=== Consume Multiple Repositories
+
+  # Assume :subscribers1 has 200 rows, :subscriber2 has 150, :subscriber3 has 50.
+
+  class Subscriber
+  
+    include Mysql2Model::Container
+  
+    def self.all
+      query("SELECT * FROM subscribers") # => resultset of 400 rows
+    end
+  
+    def self.count
+      value_sum("SELECT COUNT(*) FROM subscribers") # => 400
+    end
+  
+    def self.count_from_each
+      value("SELECT COUNT(*) FROM subscribers") # => [200,150,50]
+    end
+  
+    def self.default_repository_name
+      [:subscribers1,:subscribers2,:subscribers3]
+    end
+  
+  end
+  
 == Troubleshooting
 
-* [Mysql2Model issue tracker](http://github.com/donnoman/mysql2_model/issues/).
+* {Mysql2Model issue tracker}[http://github.com/donnoman/mysql2_model/issues/]
 
 == Note on Patches/Pull Requests
  

@@ -158,10 +158,10 @@ the same task in 56 seconds, with about 64 queries and it also dramatically redu
 * Iterate in batches to allow more efficient garbage collection of large resultsets
 
 == Similar Projects
-* Sequel with the mysql2 adapter http://sequel.rubyforge.org/
+* Sequel with the mysql2 adapter http://sequel.rubyforge.org
 * ActiveRecord with the mysql2 Adapter http://github.com/brianmario/mysql2/blob/master/lib/active_record/connection_adapters/mysql2_adapter.rb
-* Datamapper with mysql2 adapter http://datamapper.org/ 
-* RBatis is the port of iBatis to Ruby and Ruby on Rails. http://ibatis.apache.org/docs/ruby/ (Appears to be discontinued)
+* Datamapper with mysql2 adapter http://datamapper.org
+* RBatis is the port of iBatis to Ruby and Ruby on Rails. http://ibatis.apache.org/docs/ruby (Appears to be discontinued)
 
 == Special Thanks
 

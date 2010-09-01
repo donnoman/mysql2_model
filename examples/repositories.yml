@@ -9,3 +9,18 @@
     :username: infra_user
     :password: more_gibberish
     :host: localhost
+  :subscribers1:
+    :database: subscribers1_production
+    :username: sub_user
+    :password: sub_gibberish
+    :host: localhost
+  :subscribers2:
+    :database: subscribers2_production
+    :username: sub_user
+    :password: sub_gibberish
+    :host: localhost
+  :subscribers3:
+    :database: subscribers3_production
+    :username: sub_user
+    :password: sub_gibberish
+    :host: localhost

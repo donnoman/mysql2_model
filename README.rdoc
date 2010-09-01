@@ -1,17 +1,22 @@
-= mysql2_model the anti-orm
+= mysql2_model the QRM (Query Resource Manager)
 
-Mysql2Model will add a thin veneer to mysql2 to allow deliberate,
-performant containment of associated business logic that is expressed by raw
-MySQL statements.
+Provides a class suitable to be used as a model, that includes connection management, variable interpolation, 
+object coercion and helper methods to support utilizing precise MySQL statements.
 
-This gem is being designed to be used when more adaptable, extensible, or
-heavier ORM's have outlived their usefulness or desirability for the specific task
-at hand. (ActiveRecord, Sequel, Datamapper, et al)
+This library is ideal for use when more adaptable, extensible, but less flexible ORM's have exceeded their desirability
+for the complex task at hand. (ActiveRecord, Sequel, Datamapper, et al)
 
 While the example given in this README is trivial the most likely usage would be with 
 particularly gnarly business logic as you might need in generating analytics 
-where using the typical ORM's yield numerous sub-optimal SQL queries, and you are desperate
-for a simpler more precise approach.
+where a typical ORM may yield numerous sub-optimal SQL queries.
+
+== Inspiration
+
+This library was conceived when I wanted to solve a specific performance issue in a small Sinatra app that used Datamapper
+by replacing it with a series of complex but precisely crafted SQL queries. The process generated a 21mb (and growing) XML file,
+at a cost of over 300k queries, and taking 27 minutes.  I desired something that looked and acted like a Datamapper/ActiveRecord 
+model but without the cruft. I wanted simple, lightweight and performant. The resulting Mysql2Model derived class accomplished 
+the same task in 56 seconds, with about 64 queries and it also dramatically reduced the ruby process' memory footprint.
 
 == Usage
 
@@ -101,27 +106,62 @@ for a simpler more precise approach.
     puts "Host: #{mtdb[:db_server_host]}"   #direct member access
     puts "Config: {mtdb.to_config.inspect}" #model methods
   end
+  
+=== Consume Multiple Repositories
 
-== Todo
-* Time formatting when using the composing pattern to seamlessly pass time objects to mysql2
-** Support ActiveSupport::TimeWithZone?
-** Enforce compliance with Mysql2
-* Incorporate Test,Production,Development into the repositories.yml
-* Improve instantiating the results so that we can regain mysql2's lazy loading.
-* Evented Connection Pools
-* Evented Query Patterns
+  # Assume :subscribers1 has 200 rows, :subscriber2 has 150, :subscriber3 has 50.
+
+  class Subscriber
+  
+    include Mysql2Model::Container
+  
+    def self.all
+      query("SELECT * FROM subscribers") # => resultset of 400 rows
+    end
+  
+    def self.count
+      value_sum("SELECT COUNT(*) FROM subscribers") # => 400
+    end
+  
+    def self.count_from_each
+      value("SELECT COUNT(*) FROM subscribers") # => [200,150,50]
+    end
+  
+    def self.default_repository_name
+      [:subscribers1,:subscribers2,:subscribers3]
+    end
+  
+  end
+  
+== Troubleshooting
+
+* {Mysql2Model issue tracker}[http://github.com/donnoman/mysql2_model/issues/]
 
 == Note on Patches/Pull Requests
  
 * Fork the project.
 * Make your feature addition or bug fix.
 * Add tests for it. This is important so I don't break it in a future version unintentionally.
-* Commit, do not mess with rakefile, version, or history.
-  (if you want to have your own version, that is fine but bump version in a commit by itself I can ignore when I pull)
+* Commit, do not mess with rakefile, version, or changelog.
+  (if you want to have your own version, that is fine but bump version in a commit by itself so that I can ignore it when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
+== Todo
+* Improve coupling between classes
+* Time formatting when using the composing pattern to seamlessly pass time objects to mysql2
+  * Support ActiveSupport::TimeWithZone?
+  * Compliance with Mysql2 time handling
+* Incorporate Test,Production,Development environments into the repositories.yml
+* Improve instantiating the results so that we can regain mysql2's lazy loading.
+* Evented Connection Pools
+* Evented Query Patterns
+* Iterate in batches to allow more efficient garbage collection of large resultsets
+
 == Similar Projects
-* RBatis is the port of iBatis to Ruby and Ruby on Rails. http://ibatis.apache.org/docs/ruby/ (Appears to be discontinued)
+* Sequel with the mysql2 adapter http://sequel.rubyforge.org
+* ActiveRecord with the mysql2 Adapter http://github.com/brianmario/mysql2/blob/master/lib/active_record/connection_adapters/mysql2_adapter.rb
+* Datamapper with mysql2 adapter http://datamapper.org
+* RBatis is the port of iBatis to Ruby and Ruby on Rails. http://ibatis.apache.org/docs/ruby (Appears to be discontinued)
 
 == Special Thanks
 

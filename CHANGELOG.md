@@ -1,4 +1,8 @@
 # Changelog
+## 0.0.5 (September 1st, 2010)
+* Added naive Date/Time Coercion (Be vewy vewy wary)
+* Added support for a Logger provided by Logging
+* Added support for sending the same query to multiple repositories and aggregating the results.
 ## 0.0.4 (August 30th, 2010)
 * Refactored Mysql2Model::Client to use class instance instead of class variables.
 * Refactored Mysql2Model::Config to use class instance instead of class variables.

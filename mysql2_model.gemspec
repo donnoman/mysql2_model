@@ -5,12 +5,12 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mysql2_model}
-  s.version = "0.0.4"
+  s.version = "0.0.5"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["donnoman"]
-  s.date = %q{2010-08-30}
-  s.description = %q{Thin veneer to mysql2 to allow very precise, deliberate, performant containment of associated business logic that is expressed in direct MySQL statements}
+  s.date = %q{2010-09-01}
+  s.description = %q{Provides a class suitable to be used as a model, that includes connection management, variable interpolation, object coercion and helper methods to support using direct MySQL statements for database interaction.}
   s.email = %q{donnoman@donovanbray.com}
   s.extra_rdoc_files = [
     "README.rdoc"
@@ -64,15 +64,21 @@ Gem::Specification.new do |s|
     if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
       s.add_runtime_dependency(%q<mysql2>, ["~> 0.2"])
       s.add_runtime_dependency(%q<activesupport>, ["~> 2.3"])
+      s.add_runtime_dependency(%q<builder>, ["~> 2.1.2"])
+      s.add_runtime_dependency(%q<logging>, ["~> 1"])
       s.add_development_dependency(%q<rspec>, ["~> 1.3"])
     else
       s.add_dependency(%q<mysql2>, ["~> 0.2"])
       s.add_dependency(%q<activesupport>, ["~> 2.3"])
+      s.add_dependency(%q<builder>, ["~> 2.1.2"])
+      s.add_dependency(%q<logging>, ["~> 1"])
       s.add_dependency(%q<rspec>, ["~> 1.3"])
     end
   else
     s.add_dependency(%q<mysql2>, ["~> 0.2"])
     s.add_dependency(%q<activesupport>, ["~> 2.3"])
+    s.add_dependency(%q<builder>, ["~> 2.1.2"])
+    s.add_dependency(%q<logging>, ["~> 1"])
     s.add_dependency(%q<rspec>, ["~> 1.3"])
   end
 end

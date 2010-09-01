@@ -6,13 +6,15 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "mysql2_model"
     gem.summary = %Q{Mysql2Model is a container for creating model code based on the Mysql2 gem}
-    gem.description = %Q{Thin veneer to mysql2 to allow very precise, deliberate, performant containment of associated business logic that is expressed in direct MySQL statements}
+    gem.description = %Q{Provides a class suitable to be used as a model, that includes connection management, variable interpolation, object coercion and helper methods to support using direct MySQL statements for database interaction.}
     gem.email = "donnoman@donovanbray.com"
     gem.homepage = "http://github.com/donnoman/mysql2_model"
     gem.authors = ["donnoman"]
     gem.add_runtime_dependency "mysql2", "~> 0.2"
     gem.add_runtime_dependency "activesupport", "~> 2.3"
-    gem.add_development_dependency "rspec", "~> 1.3"    
+    gem.add_runtime_dependency 'builder', '~> 2.1.2' #Not needed if using entire active_support
+    gem.add_runtime_dependency 'logging', '~> 1'
+    gem.add_development_dependency "rspec", "~> 1.3"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
   end
   Jeweler::GemcutterTasks.new

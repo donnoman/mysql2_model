@@ -1,6 +1,21 @@
 module Mysql2Model
   class Client
-    private_class_method :new
+    def initialize(repos)
+      @repos = repos
+    end
+    def query(statement)
+      collection = []
+      @repos.each do |repo|
+        self.class[repo].query(statement).each do |row| 
+          collection << row
+        end
+      end
+      collection
+    end
+    def escape(statement)
+      self.class[@repos.first].escape(statement)
+    end
+    
     class << self
       #TODO: Create connection pooling infrastructure
       def repositories
@@ -17,11 +32,15 @@ module Mysql2Model
         end
       end
       def [](repository_name)
-        load_repos
-        @repositories[repository_name][:client] ||= begin
-          c = Mysql2::Client.new(@repositories[repository_name][:config])
-          c.query_options.merge!(:symbolize_keys => true)
-          c
+        if repository_name.is_a?(Array)
+          self.new(repository_name)
+        else
+          load_repos
+          @repositories[repository_name][:client] ||= begin
+            c = Mysql2::Client.new(@repositories[repository_name][:config])
+            c.query_options.merge!(:symbolize_keys => true)
+            c
+          end
         end
       end
       def []=(repository_name,config)
@@ -30,5 +49,6 @@ module Mysql2Model
         @repositories[repository_name][:config] = config
       end
     end
+    
   end
 end

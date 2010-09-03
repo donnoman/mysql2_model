@@ -137,7 +137,7 @@ reduced the memory footprint.
   
 == Documentation 
  
-  http://rubydoc.info/github/donnoman/mysql2_model
+* http://rubydoc.info/github/donnoman/mysql2_model
   
 == Troubleshooting
 

@@ -124,17 +124,11 @@ reduced the memory footprint.
   
   end
   
-== Documentation 
- 
-* http://rubydoc.info/github/donnoman/mysql2_model
-  
 == Troubleshooting
 
-* {Mysql2Model issue tracker}[http://github.com/donnoman/mysql2_model/issues/]
-
-== RubyTracker Dependencies
-
-* http://rubytracker.com/projects/425
+* {Issue tracker}[http://github.com/donnoman/mysql2_model/issues/]
+* {Documentation}[http://rubydoc.info/github/donnoman/mysql2_model]
+* {mysql2_model@googlegroups.com}[http://groups.google.com/group/mysql2_model]
 
 == Note on Patches/Pull Requests
  
@@ -161,6 +155,11 @@ reduced the memory footprint.
 * ActiveRecord with the mysql2 Adapter http://github.com/brianmario/mysql2/blob/master/lib/active_record/connection_adapters/mysql2_adapter.rb
 * Datamapper with mysql2 adapter http://datamapper.org
 * RBatis is the port of iBatis to Ruby and Ruby on Rails. http://ibatis.apache.org/docs/ruby (Appears to be discontinued)
+
+== Admin
+
+* {RubyTracker}[http://rubytracker.com/projects/425] As soon as there is a public url I will include it in the readme under troubleshooting.
+* {RubyGems}[http://rubygems.org/gems/mysql2_model]
 
 == Special Thanks
 

@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.1.1 (September 2nd, 2010)
+* Fixed README.rdoc causing warnings on gem installation
+
 ## 0.1.0 (September 2nd, 2010)
 * First Gem Release
 * Added Documentation

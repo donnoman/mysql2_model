@@ -22,6 +22,7 @@ coverage
 rdoc
 pkg
 .yardoc
+doc
 
 ## PROJECT::SPECIFIC
 spec/repositories.yml

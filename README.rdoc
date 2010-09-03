@@ -30,19 +30,8 @@ reduced the memory footprint.
 
 === Create a yml structure to point to the databases
 
-  # config/repositories.yml
-  :repositories:
-    :default:
-      :database: community_production
-      :username: root
-      :password: gibberish
-      :host: localhost
-    :infrastructure:
-      :database: infrastructure_production
-      :username: infra_user
-      :password: more_gibberish
-      :host: localhost
-      
+* See examples/repositories.yml
+
 === Config it
 
   Mysql2Model::Config.repository_path = 'config/repositories.yml'

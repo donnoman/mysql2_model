@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{mysql2_model}
-  s.version = "0.0.5"
+  s.version = "0.1.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["donnoman"]
-  s.date = %q{2010-09-01}
+  s.date = %q{2010-09-03}
   s.description = %q{Provides a class suitable to be used as a model, that includes connection management, variable interpolation, object coercion and helper methods to support using direct MySQL statements for database interaction.}
   s.email = %q{donnoman@donovanbray.com}
   s.extra_rdoc_files = [
@@ -18,6 +18,7 @@ Gem::Specification.new do |s|
   s.files = [
     ".document",
      ".gitignore",
+     ".yardopts",
      "CHANGELOG.md",
      "Gemfile",
      "Gemfile.lock",
@@ -27,6 +28,7 @@ Gem::Specification.new do |s|
      "VERSION",
      "examples/mtdb.rb",
      "examples/repositories.yml",
+     "examples/subscriber.rb",
      "lib/mysql2_model.rb",
      "lib/mysql2_model/client.rb",
      "lib/mysql2_model/composer.rb",
@@ -46,7 +48,7 @@ Gem::Specification.new do |s|
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
   s.rubygems_version = %q{1.3.7}
-  s.summary = %q{Mysql2Model is a container for creating model code based on the Mysql2 gem}
+  s.summary = %q{Mysql2Model provides a container for creating model code based on MySQL Statements utilizing the Mysql2 client}
   s.test_files = [
     "spec/mysql2_model/client_spec.rb",
      "spec/mysql2_model/container_spec.rb",
@@ -54,7 +56,8 @@ Gem::Specification.new do |s|
      "spec/mysql2_model/composer_spec.rb",
      "spec/mysql2_model_spec.rb",
      "spec/spec_helper.rb",
-     "examples/mtdb.rb"
+     "examples/mtdb.rb",
+     "examples/subscriber.rb"
   ]
 
   if s.respond_to? :specification_version then

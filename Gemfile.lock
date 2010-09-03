@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    mysql2_model (0.0.5)
+    mysql2_model (0.1.0)
       activesupport (~> 2.3)
       builder (~> 2.1.2)
       logging (~> 1)

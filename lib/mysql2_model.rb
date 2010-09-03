@@ -6,9 +6,6 @@ require 'mysql2'
 require 'forwardable'
 require 'logging'
 
-# = Mysql2Model
-#
-#
 module Mysql2Model
   VERSION = File.read(File.expand_path(File.dirname(__FILE__) + '/../VERSION')).strip
   LOGGER = Logging.logger(STDOUT)

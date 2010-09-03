@@ -21,6 +21,7 @@ nbproject
 coverage
 rdoc
 pkg
+.yardoc
 
 ## PROJECT::SPECIFIC
 spec/repositories.yml

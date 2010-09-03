@@ -1,24 +1,28 @@
 = mysql2_model the QRM (Query Resource Manager)
 
 Provides a class suitable to be used as a model, that includes connection management, variable interpolation, 
-object coercion and helper methods to support utilizing precise MySQL statements.
+object coercion and helper methods to write concise MySQL statements.
 
-This library is ideal for use when more adaptable, extensible, but less flexible ORM's have exceeded their desirability
-for the complex task at hand. (ActiveRecord, Sequel, Datamapper, et al)
+This library is ideal for use when more adaptable, extensible, but perhaps less flexible ORM's present a significant
+obstacle to writing and running the specific MySQL statements you need.
 
-While the example given in this README is trivial the most likely usage would be with 
+While the example given in this README is trivial, the most likely usage would be with 
 particularly gnarly business logic as you might need in generating analytics 
-where a typical ORM may yield numerous sub-optimal SQL queries.
+where a typical ORM may yield numerous sub-optimal MySQL statements.
 
 == Inspiration
 
-This library was conceived when I wanted to solve a specific performance issue in a small Sinatra app that used Datamapper
-by replacing it with a series of complex but precisely crafted SQL queries. The process generated a 21mb (and growing) XML file,
-at a cost of over 300k queries, and taking 27 minutes.  I desired something that looked and acted like a Datamapper/ActiveRecord 
-model but without the cruft. I wanted simple, lightweight and performant. The resulting Mysql2Model derived class accomplished 
-the same task in 56 seconds, with about 64 queries and it also dramatically reduced the ruby process' memory footprint.
+This library was conceived when I wanted to solve a performance issue in a small Sinatra app that used a well established ORM.
+I wanted to create a simple class that could act as a stand-in for the original object and directly utilize carefully crafted 
+MySQL statements. The process generated a 21mb (and growing) XML file, at initially at cost of over 300k queries, and 27 minutes.
+The resulting Mysql2Model derived class was able to accomplish the same task in 56 seconds, with about 64 queries and dramatically 
+reduced the memory footprint.
 
 == Usage
+
+=== Install It
+
+  gem install mysql2_model
 
 === Require it
 
@@ -61,11 +65,9 @@ the same task in 56 seconds, with about 64 queries and it also dramatically redu
       query("SELECT * FROM mtdbs WHERE database_name = '?' and database_host = '?'",name,host)
     end
     
-    # printf style shown with block pattern
+    # printf style 
     def self.find_by_host(host)
-      query do
-        ["SELECT * FROM mtdbs WHERE database_host = '%s'",host]
-      end
+      query("SELECT * FROM mtdbs WHERE database_host = '%s'",host)
     end
     
     # Named Binds
@@ -169,5 +171,7 @@ the same task in 56 seconds, with about 64 queries and it also dramatically redu
 
 == Copyright
 
-Copyright (c) 2010 donnoman. See MIT-LICENSE for details.
+Copyright (c) 2010 Donovan Bray "donnoman@donovanbray.com" http://github.com/donnoman 
+
+See MIT-LICENSE for details.
 

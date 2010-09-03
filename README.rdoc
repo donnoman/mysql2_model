@@ -132,6 +132,10 @@ reduced the memory footprint.
 
 * {Mysql2Model issue tracker}[http://github.com/donnoman/mysql2_model/issues/]
 
+== RubyTracker Dependencies
+
+* http://rubytracker.com/projects/425
+
 == Note on Patches/Pull Requests
  
 * Fork the project.

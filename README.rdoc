@@ -127,7 +127,7 @@ reduced the memory footprint.
 == Troubleshooting
 
 * {Issue tracker}[http://github.com/donnoman/mysql2_model/issues/]
-* {Documentation}[http://rubydoc.info/github/donnoman/mysql2_model]
+* {Documentation}[http://rubydoc.info/github/donnoman/mysql2_model/master/frames]
 * {mysql2_model@googlegroups.com}[http://groups.google.com/group/mysql2_model]
 
 == Note on Patches/Pull Requests

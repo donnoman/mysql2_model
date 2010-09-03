@@ -135,6 +135,10 @@ reduced the memory footprint.
   
   end
   
+== Documentation 
+ 
+  http://rubydoc.info/github/donnoman/mysql2_model
+  
 == Troubleshooting
 
 * {Mysql2Model issue tracker}[http://github.com/donnoman/mysql2_model/issues/]

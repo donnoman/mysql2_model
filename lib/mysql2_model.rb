@@ -1,7 +1,5 @@
 require 'rubygems'
-require 'active_support/core_ext/object/blank'
-require 'active_support/core_ext/time'
-require 'active_support/core_ext/date_time'
+require 'active_support/core_ext'
 require 'mysql2'
 require 'forwardable'
 require 'logging'
